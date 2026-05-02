@@ -1,0 +1,41 @@
+{
+    "time": {
+        "time_multiplier": 1
+    },
+    
+    "stats": {
+        "max_strength_by_stage": [0, 10, 25, 40, 65, 80, 100],
+        "max_speed_by_stage": [0, 15, 25, 40, 55, 70, 100],
+        "max_hp": 6,
+        "max_hunger": 6,
+        "max_energy": 100
+    },
+
+    "progression": {
+        "xp_required_by_stage": [50, 200, 350, 500, 1000, 2000]
+    },
+
+    "energy": {
+        "recover_interval_seconds": 600,
+        "recover_amount": 5
+    },
+
+    "decay": {
+        "hunger_every_seconds": 1800,
+        "hp_loss_when_starving": 1
+    }, 
+
+    "training": {
+        "strength_gain": 2,
+        "speed_gain": 1,
+        "energy_cost": 5
+    },
+
+    "battle": {
+        "hp_loss_on_defeat": 1,
+        "minigame_bonus": {
+            "win": 1.5,
+            "lose": 1.0
+        }
+    }
+}

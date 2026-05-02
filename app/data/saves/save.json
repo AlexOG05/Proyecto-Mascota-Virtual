@@ -1,0 +1,9 @@
+{
+    "name": "Tarjeta Perforada", 
+    "hp": 6, 
+    "hunger": 6, 
+    "strength": 5, 
+    "speed": 5, 
+    "xp": 0, 
+    "stage": 1
+}
