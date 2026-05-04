@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}CodePets — Guía{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="/static/css/guide.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="guide-wrapper">
+
+    <!-- SIDEBAR -->
+    <aside class="guide-sidebar">
+        <p class="sidebar-tag">> indice</p>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="#inicio">Introducción</a></li>
+                <li><a href="#mascotas">Mascotas</a></li>
+                <li><a href="#evoluciones">Evoluciones</a></li>
+                <li><a href="#batallas">Batallas</a></li>
+                <li><a href="#cuidados">Cuidados</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- CONTENIDO -->
+    <div class="guide-content">
+
+        <section class="guide-section" id="inicio">
+            <p class="section-tag">> introduccion</p>
+            <h2>Introducción</h2>
+            <div class="guide-body">
+                <!-- contenido -->
+            </div>
+        </section>
+
+        <section class="guide-section" id="mascotas">
+            <p class="section-tag">> mascotas</p>
+            <h2>Mascotas</h2>
+            <div class="guide-body">
+                <!-- contenido -->
+            </div>
+        </section>
+
+        <section class="guide-section" id="evoluciones">
+            <p class="section-tag">> evoluciones</p>
+            <h2>Evoluciones</h2>
+            <div class="guide-body">
+                <img src="/static/img/evolution_tree.png" alt="Árbol de evoluciones" class="evolution-tree">
+            </div>
+        </section>
+
+        <section class="guide-section" id="batallas">
+            <p class="section-tag">> batallas</p>
+            <h2>Batallas</h2>
+            <div class="guide-body">
+                <!-- contenido -->
+            </div>
+        </section>
+
+        <section class="guide-section" id="cuidados">
+            <p class="section-tag">> cuidados</p>
+            <h2>Cuidados</h2>
+            <div class="guide-body">
+                <!-- contenido -->
+            </div>
+        </section>
+
+    </div>
+
+</div>
+
+{% endblock %}

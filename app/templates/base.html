@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CodePets{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/base.css')}}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <a class="nav-logo" href="/">CodePets</a>
+            <ul class="nav-links">
+                <li><a href="/game">Juego</a></li>
+                <li><a href="/news">Noticias</a></li>
+                <li><a href="/guide">Guía</a></li>
+                <li><a href="/account">Cuenta</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <span class="footer-logo">CodePets</span>
+                <p>Una mascota virtual para programadores.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Enlaces</h4>
+                <ul>
+                    <li><a href="/guide">Guía</a></li>
+                    <li><a href="/news">Noticias</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Redes</h4>
+                <ul>
+                    <li><a href="#">GitHub</a></li>
+                    <li><a href="#">Twitter</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 CodePets</p>
+        </div>
+    </footer>
+
+    {% block scripts %}
+    <script src="/static/js/ui.js"></script>
+    <script src="/static/js/game.js"></script>
+    {% endblock %}
+
+</body>
+</html>

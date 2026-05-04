@@ -4,43 +4,27 @@ Script de lógica de juego
 
 # Imports
 import json
-import time
+
+from pathlib import Path
+
 from .state import PetState
+from .pet import Pet
 
 # Archivo de guardado
-SAVE_FILE = "data/saves/save.json"
+BASE_DIR = Path(__file__).parent.parent
+SAVE_FILE = BASE_DIR / "data" / "saves" / "save.json"
 
 # Cargar estado de Mascota
-def load_state() -> PetState:
+def load_state() -> Pet:
     try:
         with open(SAVE_FILE, "r") as f:
             data = json.load(f)
-        return PetState(**data)
+        return Pet(PetState(**data))
     except:
-        return PetState()
+        return Pet(PetState())
 
 # Guardar estado de mascota 
-def save_state(state: PetState):
+def save_state(pet: Pet):
     with open(SAVE_FILE, "w") as f:
-        json.dump(state.model_dump(), f)
+        json.dump(pet.to_dict(), f, indent=4)
 
-# Paso del tiempo
-def apply_time_decay(state):
-    now = time.time()
-
-    if state.last_update == 0:
-        state.last_update = now
-        return state
-    
-    delta = now - state.last_update
-
-# Acciones Digimon
-def feed(state: PetState) -> PetState:
-    state.hunger = max(0, state.hunger - 10)
-    state.fun = min(100, state.energy + 2)
-    return state
-
-def train(state: PetState) -> PetState:
-    state.xp += 10
-    state.fun = max(0, state.fun - 5)
-    return state

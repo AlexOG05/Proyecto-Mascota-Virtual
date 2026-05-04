@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}CodePets — Noticias{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="/static/css/news.css">
+{% endblock %}
+
+{% block content %}
+
+<!-- BANNER DESTACADO -->
+<section class="news-banner">
+    <div class="news-banner-image">
+        <!-- imagen destacada -->
+    </div>
+    <div class="news-banner-content">
+        <p class="news-tag">> destacado</p>
+        <h1 class="news-banner-title">Título de la noticia destacada</h1>
+        <p class="news-banner-excerpt">Descripción breve de la noticia destacada. Un resumen corto que invite a leer más sobre el contenido principal.</p>
+        <div class="news-meta">
+            <span class="news-date">01/01/2025</span>
+            <span class="news-author">Autor</span>
+        </div>
+        <a href="#" class="btn-primary">Leer más</a>
+    </div>
+</section>
+
+<!-- LISTA DE NOTICIAS -->
+<section class="news-list">
+    <p class="section-tag">> ultimas_noticias</p>
+
+    <article class="news-item">
+        <div class="news-item-image">
+            <!-- imagen -->
+        </div>
+        <div class="news-item-content">
+            <p class="news-date">01/01/2025</p>
+            <h2><a href="#">Título de la noticia</a></h2>
+            <p class="news-excerpt">Descripción breve de la noticia. Un resumen corto del contenido.</p>
+            <span class="news-author">Autor</span>
+        </div>
+    </article>
+
+    <article class="news-item">
+        <div class="news-item-image">
+            <!-- imagen -->
+        </div>
+        <div class="news-item-content">
+            <p class="news-date">28/12/2024</p>
+            <h2><a href="#">Título de la noticia</a></h2>
+            <p class="news-excerpt">Descripción breve de la noticia. Un resumen corto del contenido.</p>
+            <span class="news-author">Autor</span>
+        </div>
+    </article>
+
+    <article class="news-item">
+        <div class="news-item-image">
+            <!-- imagen -->
+        </div>
+        <div class="news-item-content">
+            <p class="news-date">15/12/2024</p>
+            <h2><a href="#">Título de la noticia</a></h2>
+            <p class="news-excerpt">Descripción breve de la noticia. Un resumen corto del contenido.</p>
+            <span class="news-author">Autor</span>
+        </div>
+    </article>
+
+</section>
+
+{% endblock %}

@@ -1,9 +1,12 @@
 {
-    "name": "Tarjeta Perforada", 
-    "hp": 6, 
-    "hunger": 6, 
-    "strength": 5, 
-    "speed": 5, 
-    "xp": 0, 
-    "stage": 1
+    "name": "machina",
+    "hp": 6,
+    "hunger": 1,
+    "energy": 90,
+    "strength": 5,
+    "speed": 5,
+    "xp": 0,
+    "stage": 1,
+    "waste": 1,
+    "last_update": 1777839603.5965257
 }

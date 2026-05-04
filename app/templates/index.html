@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}CodePets — Inicio{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="/static/css/index.css">
+{% endblock %}
+
+{% block content %}
+
+<!-- BANNER -->
+<section class="banner">
+    <div class="banner-content">
+        <p class="banner-tag">> mascota_virtual.exe</p>
+        <h1 class="banner-title">CodePets</h1>
+        <p class="banner-subtitle">Cría, entrena y evoluciona tu propia mascota basada en el mundo de la programación.</p>
+        <a href="/game" class="btn-primary">Jugar ahora</a>
+    </div>
+    <div class="banner-image">
+        <!-- imagen banner -->
+    </div>
+</section>
+
+<!-- SECCIÓN 1 — QUÉ ES CODEPETS -->
+<section class="feature">
+    <div class="feature-image">
+        <!-- imagen mascotas -->
+    </div>
+    <div class="feature-text">
+        <p class="feature-tag">> sobre_el_juego</p>
+        <h2>Mascotas del mundo del código</h2>
+        <p>CodePets es un juego de mascota virtual donde cada criatura está inspirada en un lenguaje de programación. Cuida de tu mascota, aliméntala, entrénala y observa cómo evoluciona desde una simple Tarjeta Perforada hasta un poderoso framework.</p>
+    </div>
+</section>
+
+<!-- SECCIÓN 2 — BATALLAS -->
+<section class="feature feature-reverse">
+    <div class="feature-text">
+        <p class="feature-tag">> sistema_batalla</p>
+        <h2>Combates automáticos</h2>
+        <p>Explora zonas y enfréntate a otras mascotas en combates automáticos. Demuestra tu habilidad en el minijuego previo para potenciar a tu mascota y conseguir objetos que desbloquean nuevas evoluciones.</p>
+    </div>
+    <div class="feature-image">
+        <!-- imagen batallas -->
+    </div>
+</section>
+
+<!-- SECCIÓN 3 — EVOLUCIONES -->
+<section class="feature">
+    <div class="feature-image">
+        <!-- imagen evoluciones -->
+    </div>
+    <div class="feature-text">
+        <p class="feature-tag">> evoluciones</p>
+        <h2>Un árbol de evolución histórico</h2>
+        <p>Tu mascota sigue la historia de la programación. Desde el Lenguaje Máquina hasta Django, Java o C, cada evolución refleja un salto real en la historia del código.</p>
+    </div>
+</section>
+
+{% endblock %}

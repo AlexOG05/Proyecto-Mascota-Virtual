@@ -1,0 +1,142 @@
+/* ── VARIABLES ───────────────────────────────────── */
+:root {
+    --bg:        #0d0d0d;
+    --surface:   #1a1a1a;
+    --border:    #2a2a2a;
+    --text:      #c8c8c8;
+    --text-dim:  #666;
+    --accent:    #39d353;
+    --accent2:   #4a9eff;
+    --font-mono: 'Courier New', monospace;
+}
+
+/* ── RESET ───────────────────────────────────────── */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-mono);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: var(--accent);
+}
+
+ul {
+    list-style: none;
+}
+
+/* ── NAVBAR ──────────────────────────────────────── */
+header {
+    border-bottom: 1px solid var(--border);
+    background-color: var(--surface);
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-logo {
+    font-size: 1.2rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+}
+
+.nav-links a:hover {
+    color: var(--accent);
+}
+
+/* ── MAIN ────────────────────────────────────────── */
+main {
+    flex: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* ── FOOTER ──────────────────────────────────────── */
+footer {
+    border-top: 1px solid var(--border);
+    background-color: var(--surface);
+    margin-top: auto;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    gap: 4rem;
+}
+
+.footer-section p {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+.footer-logo {
+    color: var(--accent);
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+}
+
+.footer-section h4 {
+    color: var(--text);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+}
+
+.footer-section ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.footer-section ul a {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+}
+
+.footer-section ul a:hover {
+    color: var(--accent);
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--border);
+    padding: 1rem 2rem;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+}

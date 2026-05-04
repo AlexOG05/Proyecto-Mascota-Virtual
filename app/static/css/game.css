@@ -1,0 +1,208 @@
+/* ── VARIABLES ───────────────────────────────────── */
+:root {
+    --floor-height: 24px;
+}
+
+/* ── TERMINAL ────────────────────────────────────── */
+.terminal {
+    max-width: 860px;
+    margin: 0 auto;
+    border: 1px solid var(--accent);
+    box-shadow: 0 0 16px #39d35333;
+    font-family: var(--font-mono);
+}
+
+.terminal-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.6rem 1rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+.terminal-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.terminal-dots span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+}
+
+.terminal-title {
+    color: var(--accent);
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+}
+
+/* ── PANTALLA ────────────────────────────────────── */
+.terminal-screen {
+    position: relative;
+    height: 340px;
+    background-color: #0a0a0a;
+    background-image: radial-gradient(circle, #1a2a1a 1px, transparent 1px);
+    background-size: 8px 8px;
+    overflow: hidden;
+}
+
+.screen-scanlines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        rgba(0, 0, 0, 0.15) 3px,
+        rgba(0, 0, 0, 0.15) 4px
+    );
+    pointer-events: none;
+    z-index: 2;
+}
+
+.screen-floor {
+    position: absolute;
+    bottom: var(--floor-height);
+    left: 5%;
+    right: 5%;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.3;
+    z-index: 1;
+}
+
+#pet-sprite {
+    position: absolute;
+    bottom: calc(var(--floor-height) + 2px);
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    width: 128px;
+    height: 128px;
+    z-index: 3;
+    animation: walk 4s linear infinite alternate;
+}
+
+@keyframes walk {
+    from { left: 10%; }
+    to   { left: calc(90% - 128px); }
+}
+
+.flipped {
+    transform: scaleX(-1);
+}
+
+/* ── STATS ───────────────────────────────────────── */
+.terminal-stats {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    background: var(--bg);
+}
+
+.stat-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.stat-label {
+    color: var(--accent);
+    font-size: 0.8rem;
+    width: 80px;
+    flex-shrink: 0;
+}
+
+.stat-pips {
+    display: flex;
+    gap: 4px;
+}
+
+.pip {
+    width: 12px;
+    height: 12px;
+    border: 1px solid var(--border);
+    background: transparent;
+}
+
+.pip-on {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.pip-waste.pip-on {
+    background: #ff4444;
+    border-color: #ff4444;
+}
+
+.stat-bar {
+    flex: 1;
+    height: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    max-width: 200px;
+}
+
+.stat-bar-fill {
+    height: 100%;
+    background: var(--accent2);
+    transition: width 0.3s;
+}
+
+.stat-value {
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    width: 40px;
+}
+
+/* ── ACCIONES ────────────────────────────────────── */
+.terminal-actions {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+}
+
+.action-btn {
+    flex: 1;
+    padding: 0.75rem;
+    background: transparent;
+    border: none;
+    border-right: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: color 0.2s, background 0.2s;
+    letter-spacing: 0.05em;
+}
+
+.action-btn:last-child {
+    border-right: none;
+}
+
+.action-btn:hover {
+    color: var(--accent);
+    background: var(--surface);
+}
+
+.action-btn:active {
+    background: #39d35322;
+}
+
+/* ── LOG ─────────────────────────────────────────── */
+.terminal-log {
+    padding: 0.75rem 1.5rem;
+    background: var(--bg);
+    min-height: 40px;
+}
+
+#log-output {
+    color: var(--accent);
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+}
