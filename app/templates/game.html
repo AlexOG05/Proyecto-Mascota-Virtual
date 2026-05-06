@@ -18,17 +18,31 @@
     </div>
 
     <!-- PANTALLA -->
-    <div class="terminal-screen">
+    <div class="terminal-screen" id="terminal-screen">
         <div class="screen-scanlines"></div>
         <div class="screen-floor"></div>
         <img id="pet-sprite"
-             data-pet="{{ pet.name }}"
-             src="/static/assets/sprites/{{ pet.name }}/idle.png"
-             alt="{{ pet.name }}">
+            data-pet="{{ pet.name }}"
+            src="/static/assets/sprites/{{ pet.name }}/idle.png"
+            alt="{{ pet.name }}">
+
+        <!-- PANTALLAZO AZUL -->
+        <div id="death-content" class="hidden">
+            <p class="death-title">Windows</p>
+            <h1>:(</h1>
+            <p>A fatal exception 0E has occurred at 028:C0011E36 in VXD VMM(01).</p>
+            <p>The current application will be terminated.</p>
+            <br>
+            <p>* Press any key to terminate the current application.</p>
+            <p>* Press CTRL+ALT+DEL again to restart your computer.</p>
+            <br>
+            <p class="blink">Press any key to continue _</p>
+        </div>
     </div>
 
     <!-- STATS -->
     <div class="terminal-stats">
+        <!-- ESTADÍSTICAS VITALES -->
         <div class="stat-row">
             <span class="stat-label">> HP</span>
             <div class="stat-pips" id="stat-hp">
@@ -49,8 +63,8 @@
         </div>
         <div class="stat-row">
             <span class="stat-label">> energy</span>
-            <div class="stat-bar">
-                <div class="stat-bar-fill"></div>
+            <div class="stat-bar" id="stat-energy">
+                <div class="stat-bar-fill" style="width: {{ pet.energy }}%;"></div>
             </div>
             <span class="stat-value">{{ pet.energy }}/100</span>
         </div>
@@ -63,15 +77,54 @@
             </div>
             <span class="stat-value">{{ pet.waste }}/3</span>
         </div>
+
+        <br> <!-- Separador visual en la terminal -->
+
+        <!-- ESTADÍSTICAS DE COMBATE Y EVOLUCIÓN -->
+        <!-- Nota: El editor da "errores-falsos", no hacer caso-->
+        <div class="stat-row">
+            <span class="stat-label">> combat_hp</span>
+            <div class="stat-bar" id="stat-combat-hp">
+                <div class="stat-bar-fill" style="width: {{ pet.combat_hp }}%;"></div>
+            </div>
+            <span class="stat-value">{{ pet.combat_hp }}/100</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">> strength</span>
+            <div class="stat-bar" id="stat-strength">
+                <div class="stat-bar-fill" style="width: {{ pet.strength }}%;"></div>
+            </div>
+            <span class="stat-value">{{ pet.strength }}/100</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">> speed</span>
+            <div class="stat-bar" id="stat-speed">
+                <div class="stat-bar-fill" style="width: {{ pet.speed }}%;"></div>
+            </div>
+            <span class="stat-value">{{ pet.speed }}/100</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">> stage</span>
+            <div class="stat-pips" id="stat-stage">
+                {% for i in range(6) %}
+                    <span class="pip {% if i < pet.stage %}pip-on{% endif %}"></span>
+                {% endfor %}
+            </div>
+            <span class="stat-value">{{ pet.stage }}/6</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">> xp</span>
+            <span class="stat-value" id="stat-xp">{{ pet.xp }}</span>
+        </div>
     </div>
 
     <!-- ACCIONES -->
     <div class="terminal-actions">
-        <button class="action-btn" onclick="doAction('feed')">feed</button>
-        <button class="action-btn" onclick="doAction('train')">train</button>
-        <button class="action-btn" onclick="doAction('heal')">heal</button>
-        <button class="action-btn" onclick="doAction('clean')">clean</button>
-        <button class="action-btn" onclick="doAction('fight')">fight</button>
+        <button class="action-btn">feed</button>
+        <button class="action-btn">train</button>
+        <button class="action-btn">heal</button>
+        <button class="action-btn">clean</button>
+        <button class="action-btn">fight</button>
     </div>
 
     <!-- LOG -->

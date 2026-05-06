@@ -1,3 +1,7 @@
+"""
+Script Inicial
+"""
+
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -14,6 +18,7 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
+# Landing Page
 @app.get("/")
 def index(request: Request):
     return templates.TemplateResponse( 
@@ -21,6 +26,7 @@ def index(request: Request):
         name = "index.html"
         )
 
+# Página de Juego
 @app.get("/game")
 def game(request: Request):
     pet = load_state()
@@ -32,6 +38,7 @@ def game(request: Request):
         }        
     )
 
+# Nueva partida
 @app.post("/api/new-game")
 def new_game():
     pet = Pet(PetState())
@@ -39,6 +46,7 @@ def new_game():
     save_state(pet)
     return pet.to_dict()
 
+# Portal de noticias
 @app.get("/news")
 def game(request: Request):
     return templates.TemplateResponse(
@@ -46,6 +54,7 @@ def game(request: Request):
         name = "news.html"        
     )
 
+# Portal de guía
 @app.get("/guide")
 def game(request: Request):
     return templates.TemplateResponse(
@@ -53,18 +62,13 @@ def game(request: Request):
         name = "guide.html"        
     )
 
+# Portal de cuentas
 @app.get("/account")
 def game(request: Request):
     return templates.TemplateResponse(
         request = request,
         name = "user.html"        
     )
-
-@app.post("/api/new-game")
-def new_game():
-    pet = Pet(PetState())
-    save_state(pet)
-    return pet.to_dict()
 
 @app.post("/api/tick")
 def tick():

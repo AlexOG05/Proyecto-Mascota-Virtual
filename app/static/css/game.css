@@ -1,9 +1,4 @@
-/* ── VARIABLES ───────────────────────────────────── */
-:root {
-    --floor-height: 24px;
-}
-
-/* ── TERMINAL ────────────────────────────────────── */
+/* ------ TERMINAL ------ */
 .terminal {
     max-width: 860px;
     margin: 0 auto;
@@ -39,7 +34,7 @@
     letter-spacing: 0.05em;
 }
 
-/* ── PANTALLA ────────────────────────────────────── */
+/* ------ PANTALLA ------ */
 .terminal-screen {
     position: relative;
     height: 340px;
@@ -65,7 +60,7 @@
 
 .screen-floor {
     position: absolute;
-    bottom: var(--floor-height);
+    bottom: 20px;
     left: 5%;
     right: 5%;
     height: 1px;
@@ -76,7 +71,7 @@
 
 #pet-sprite {
     position: absolute;
-    bottom: calc(var(--floor-height) + 2px);
+    bottom: 22px;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
     width: 128px;
@@ -85,16 +80,47 @@
     animation: walk 4s linear infinite alternate;
 }
 
-@keyframes walk {
-    from { left: 10%; }
-    to   { left: calc(90% - 128px); }
+/*------ MUERTE DE CODEPET ------*/
+.terminal-screen.dead {
+    background-color: #0000AA; 
+    background-image: none;
+    color: #FFFFFF;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 20px;
+    display: block; 
 }
 
-.flipped {
-    transform: scaleX(-1);
+.terminal-screen.dead .screen-floor,
+.terminal-screen.dead #pet-sprite {
+    display: none;
 }
 
-/* ── STATS ───────────────────────────────────────── */
+.terminal-screen.dead #death-content {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+.death-title {
+    background-color: #AAAAAA;
+    color: #0000AA;
+    display: inline-block;
+    padding: 0 5px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.blink {
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% { opacity: 0; }
+}
+
+/* ----- STATS ----- */
 .terminal-stats {
     padding: 1rem 1.5rem;
     border-bottom: 1px solid var(--border);
@@ -113,7 +139,7 @@
 .stat-label {
     color: var(--accent);
     font-size: 0.8rem;
-    width: 80px;
+    width: 90px;
     flex-shrink: 0;
 }
 
@@ -159,7 +185,7 @@
     width: 40px;
 }
 
-/* ── ACCIONES ────────────────────────────────────── */
+/* ----- ACCIONES ----- */
 .terminal-actions {
     display: flex;
     gap: 0;
@@ -194,7 +220,7 @@
     background: #39d35322;
 }
 
-/* ── LOG ─────────────────────────────────────────── */
+/* ----- LOG ----- */
 .terminal-log {
     padding: 0.75rem 1.5rem;
     background: var(--bg);
