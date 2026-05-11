@@ -24,7 +24,7 @@ class PetState(BaseModel):
     speed: int = Field(default=0, ge=0, le=100)       # 0 - 100 (Velocidad de combate)
 
     # Estadísticas de evolución y control
-    xp: int = Field(default=0, ge=0)                  # Progreso evoltivo
+    xp: int = Field(default=0, ge=0)                  # Progreso evolutivo
     level: int = Field(default=1, ge=1, le=10)        # 1 - 10 (Nivel de mascota)
     stage: int = Field(default=1, ge=1, le=5)         # 1 - 5 (Nivel de evolución/Etapa)
     last_update: Optional[float] = None               # Última actualización (None = nunca)

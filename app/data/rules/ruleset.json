@@ -123,20 +123,20 @@
     },
 
     "energy": {
-        "recover_interval": 60,
+        "recover_interval": 1800,
         "recover_amount": 10
     },
 
     "decay": {
-        "hunger_interval": 180,
+        "hunger_interval": 1800,
         "hp_loss_when_starving": 1,
-        "waste_spawn_interval": 360,
+        "waste_spawn_interval": 3600,
         "max_waste": 3,
         "hp_loss_when_max_waste": 1
     }, 
 
     "actions": {
-        "heal_xp_cost": 20
+        "heal_xp_cost": 50
     },
 
     "training": {
