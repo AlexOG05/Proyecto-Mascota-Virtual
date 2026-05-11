@@ -7,129 +7,254 @@
 {% endblock %}
 
 {% block content %}
-<div class="terminal">
+<div class="game-layout">
 
-    <!-- HEADER -->
-    <div class="terminal-header">
-        <span class="terminal-dots">
-            <span></span><span></span><span></span>
-        </span>
-        <span class="terminal-title">codepets@terminal:~$</span>
+    <!-- TERMINAL -->
+    <div class="terminal">
+
+        <!-- HEADER -->
+        <div class="terminal-header">
+            <span class="terminal-dots">
+                <span></span><span></span><span></span>
+            </span>
+            <span class="terminal-title" id="terminal-title">{{ pet.name }}@codepets:~$</span>
+        </div>
+
+        <!-- PANTALLA -->
+        <div class="terminal-screen" id="terminal-screen">
+            <div class="screen-scanlines"></div>
+            <div class="screen-floor"></div>
+            <div id="waste-container"></div>
+            <img id="pet-sprite"
+                data-pet="{{ pet.codepet }}"
+                src="/static/assets/sprites/{{ pet.codepet }}/walk1.png"
+                alt="{{ pet.codepet }}">
+
+            <!-- PANTALLAZO AZUL -->
+            <div id="death-content" class="hidden">
+                <p class="death-title">Windows</p>
+                <h1>:(</h1>
+                <p>A fatal exception 0E has occurred at 028:C0011E36 in VXD VMM(01).</p>
+                <p>The current application will be terminated.</p>
+                <br>
+                <p>* Press any key to terminate the current application.</p>
+                <p>* Press CTRL+ALT+DEL again to restart your computer.</p>
+                <br>
+                <p class="blink">Press any key to continue _</p>
+            </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="terminal-stats">
+
+            <!-- COLUMNA VITAL -->
+            <div class="stats-col">
+                <div class="stat-row">
+                    <span class="stat-label">> HP</span>
+                    <div class="stat-pips" id="stat-hp">
+                        {% for i in range(6) %}
+                            <span class="pip {% if i < pet.hp %}pip-on{% endif %}"></span>
+                        {% endfor %}
+                    </div>
+                    <span class="stat-value">{{ pet.hp }}/6</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">> hunger</span>
+                    <div class="stat-pips" id="stat-hunger">
+                        {% for i in range(6) %}
+                            <span class="pip {% if i < pet.hunger %}pip-on{% endif %}"></span>
+                        {% endfor %}
+                    </div>
+                    <span class="stat-value">{{ pet.hunger }}/6</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">> energy</span>
+                    <div class="stat-bar" id="stat-energy">
+                        <div class="stat-bar-fill" style="width: {{ pet.energy }}%;"></div>
+                    </div>
+                    <span class="stat-value">{{ pet.energy }}/100</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">> waste</span>
+                    <div class="stat-pips" id="stat-waste">
+                        {% for i in range(3) %}
+                            <span class="pip pip-waste {% if i < pet.waste %}pip-on{% endif %}"></span>
+                        {% endfor %}
+                    </div>
+                    <span class="stat-value">{{ pet.waste }}/3</span>
+                </div>
+            </div>
+
+            <!-- COLUMNA COMBATE Y EVOLUCIÓN -->
+            <div class="stats-col">
+                <div class="stat-row">
+                    <span class="stat-label">> combat_hp</span>
+                    <div class="stat-bar" id="stat-combat-hp">
+                        <div class="stat-bar-fill" style="width: 0%;"></div>
+                    </div>
+                    <span class="stat-value">{{ pet.combat_hp }}/—</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">> strength</span>
+                    <div class="stat-bar" id="stat-strength">
+                        <div class="stat-bar-fill" style="width: 0%;"></div>
+                    </div>
+                    <span class="stat-value">{{ pet.strength }}/—</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">> speed</span>
+                    <div class="stat-bar" id="stat-speed">
+                        <div class="stat-bar-fill" style="width: 0%;"></div>
+                    </div>
+                    <span class="stat-value">{{ pet.speed }}/—</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">> stage</span>
+                    <div class="stat-pips" id="stat-stage">
+                        {% for i in range(5) %}
+                            <span class="pip {% if i < pet.stage %}pip-on{% endif %}"></span>
+                        {% endfor %}
+                    </div>
+                    <span class="stat-value">{{ pet.stage }}/5</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">> level</span>
+                    <div class="stat-pips" id="stat-level">
+                        {% for i in range(pet.stat_caps.max_level) %}
+                            <span class="pip {% if i < pet.level %}pip-on{% endif %}"></span>
+                        {% endfor %}
+                    </div>
+                    <span class="stat-value">{{ pet.level }}/{{ pet.stat_caps.max_level }}</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">> xp</span>
+                    <span class="stat-value" id="stat-xp">{{ pet.xp }}</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- MODAL ENTRENAMIENTO -->
+        <div id="train-modal" class="train-modal hidden">
+            <div class="train-modal-inner">
+
+                <div id="train-step-select">
+                    <p class="train-label">> elegir stat a entrenar:</p>
+                    <div class="train-stat-btns">
+                        <button class="action-btn" data-stat="hp">hp</button>
+                        <button class="action-btn" data-stat="strength">strength</button>
+                        <button class="action-btn" data-stat="speed">speed</button>
+                    </div>
+                    <button class="action-btn" id="btn-cancel-train">cancelar</button>
+                </div>
+
+                <div id="train-step-game" class="hidden">
+                    <p class="train-label">> pulsa <span class="train-highlight">ESPACIO</span> para detener el cursor</p>
+                    <div class="minigame-bar" id="train-minigame-bar">
+                        <div class="minigame-zone" id="train-minigame-zone"></div>
+                        <div class="minigame-cursor" id="train-minigame-cursor"></div>
+                    </div>
+                    <p id="train-result" class="train-label"></p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- MODAL COMBATE -->
+        <div id="fight-modal" class="train-modal hidden">
+            <div class="train-modal-inner">
+
+                <div id="fight-step-select">
+                    <p class="train-label">> elegir zona de combate:</p>
+                    <div id="fight-zone-btns" class="train-stat-btns"></div>
+                    <button class="action-btn" id="btn-cancel-fight">cancelar</button>
+                </div>
+
+                <div id="fight-step-game" class="hidden">
+                    <p class="train-label">> pulsa <span class="train-highlight">ESPACIO</span> para detener el cursor</p>
+                    <div class="minigame-bar" id="fight-minigame-bar">
+                        <div class="minigame-zone" id="fight-minigame-zone"></div>
+                        <div class="minigame-cursor" id="fight-minigame-cursor"></div>
+                    </div>
+                </div>
+
+                <div id="fight-step-anim" class="hidden">
+                    <div class="battle-arena">
+                        <img id="battle-pet"   class="battle-sprite" src="" alt="pet">
+                        <img id="battle-enemy" class="battle-sprite battle-sprite-flip" src="" alt="enemy">
+                    </div>
+                    <p id="fight-result" class="train-label"></p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- MODAL EVOLUCIÓN -->
+        <div id="evo-modal" class="train-modal hidden">
+            <div class="train-modal-inner evo-modal-inner">
+                <p class="evo-modal-title" id="evo-modal-title"></p>
+                <img id="evo-modal-sprite" class="evo-modal-sprite" src="" alt="">
+                <p class="evo-modal-name" id="evo-modal-name"></p>
+                <p class="evo-modal-msg"  id="evo-modal-msg"></p>
+                <button class="action-btn" id="btn-close-evo">continuar</button>
+            </div>
+        </div>
+
+        <!-- MODAL NOMBRE -->
+        <div id="name-modal" class="train-modal {% if pet.name != 'Sin Nombre' %}hidden{% endif %}">
+            <div class="train-modal-inner">
+                <p class="train-label">> bienvenido. dale un nombre a tu codepet:</p>
+                <input id="name-input" class="name-input" type="text" maxlength="20" placeholder="nombre..." autocomplete="off">
+                <button class="action-btn" id="btn-confirm-name">confirmar</button>
+            </div>
+        </div>
+
+        <!-- ACCIONES -->
+        <div class="terminal-actions">
+            <button class="action-btn" data-action="feed">feed</button>
+            <button class="action-btn" data-action="train">train</button>
+            <button class="action-btn" data-action="heal">heal</button>
+            <button class="action-btn" data-action="clean">clean</button>
+            <button class="action-btn" data-action="fight">fight</button>
+        </div>
+
+        <!-- LOG -->
+        <div class="terminal-log">
+            <p id="log-output">> _</p>
+        </div>
+
     </div>
 
-    <!-- PANTALLA -->
-    <div class="terminal-screen" id="terminal-screen">
-        <div class="screen-scanlines"></div>
-        <div class="screen-floor"></div>
-        <img id="pet-sprite"
-            data-pet="{{ pet.name }}"
-            src="/static/assets/sprites/{{ pet.name }}/idle.png"
-            alt="{{ pet.name }}">
-
-        <!-- PANTALLAZO AZUL -->
-        <div id="death-content" class="hidden">
-            <p class="death-title">Windows</p>
-            <h1>:(</h1>
-            <p>A fatal exception 0E has occurred at 028:C0011E36 in VXD VMM(01).</p>
-            <p>The current application will be terminated.</p>
-            <br>
-            <p>* Press any key to terminate the current application.</p>
-            <p>* Press CTRL+ALT+DEL again to restart your computer.</p>
-            <br>
-            <p class="blink">Press any key to continue _</p>
+    <!-- SIDEBAR HISTORIAL -->
+    <div class="history-sidebar">
+        <p class="evo-title">> historial:</p>
+        <div id="battle-history-list">
+            <p class="evo-req">Sin batallas aún.</p>
         </div>
     </div>
 
-    <!-- STATS -->
-    <div class="terminal-stats">
-        <!-- ESTADÍSTICAS VITALES -->
-        <div class="stat-row">
-            <span class="stat-label">> HP</span>
-            <div class="stat-pips" id="stat-hp">
-                {% for i in range(6) %}
-                    <span class="pip {% if i < pet.hp %}pip-on{% endif %}"></span>
-                {% endfor %}
+    <!-- SIDEBAR EVOLUCIONES -->
+    <div class="evo-sidebar" id="evolution-panel">
+        <p class="evo-title">> evoluciones:</p>
+        <div id="evo-list">
+            {% for evo in pet.evolutions %}
+            <div class="evo-card {% if evo.can_evolve %}evo-ready{% endif %}">
+                <img class="evo-sprite" src="/static/assets/sprites/{{ evo.target }}/idle.png" alt="{{ evo.target }}">
+                <div class="evo-info">
+                    <span class="evo-name">{{ evo.target }}</span>
+                    <span class="evo-req {% if evo.level_ok %}req-ok{% endif %}">lvl max: {% if evo.level_ok %}✓{% else %}✗{% endif %}</span>
+                    {% if evo.min_strength > 0 %}
+                    <span class="evo-req {% if evo.strength_ok %}req-ok{% endif %}">str ≥ {{ evo.min_strength }}: {% if evo.strength_ok %}✓{% else %}✗{% endif %}</span>
+                    {% endif %}
+                    {% if evo.min_speed > 0 %}
+                    <span class="evo-req {% if evo.speed_ok %}req-ok{% endif %}">spd ≥ {{ evo.min_speed }}: {% if evo.speed_ok %}✓{% else %}✗{% endif %}</span>
+                    {% endif %}
+                </div>
             </div>
-            <span class="stat-value">{{ pet.hp }}/6</span>
+            {% else %}
+            <p class="evo-req">Sin evoluciones.</p>
+            {% endfor %}
         </div>
-        <div class="stat-row">
-            <span class="stat-label">> hunger</span>
-            <div class="stat-pips" id="stat-hunger">
-                {% for i in range(6) %}
-                    <span class="pip {% if i < pet.hunger %}pip-on{% endif %}"></span>
-                {% endfor %}
-            </div>
-            <span class="stat-value">{{ pet.hunger }}/6</span>
-        </div>
-        <div class="stat-row">
-            <span class="stat-label">> energy</span>
-            <div class="stat-bar" id="stat-energy">
-                <div class="stat-bar-fill" style="width: {{ pet.energy }}%;"></div>
-            </div>
-            <span class="stat-value">{{ pet.energy }}/100</span>
-        </div>
-        <div class="stat-row">
-            <span class="stat-label">> waste</span>
-            <div class="stat-pips" id="stat-waste">
-                {% for i in range(3) %}
-                    <span class="pip pip-waste {% if i < pet.waste %}pip-on{% endif %}"></span>
-                {% endfor %}
-            </div>
-            <span class="stat-value">{{ pet.waste }}/3</span>
-        </div>
-
-        <br> <!-- Separador visual en la terminal -->
-
-        <!-- ESTADÍSTICAS DE COMBATE Y EVOLUCIÓN -->
-        <!-- Nota: El editor da "errores-falsos", no hacer caso-->
-        <div class="stat-row">
-            <span class="stat-label">> combat_hp</span>
-            <div class="stat-bar" id="stat-combat-hp">
-                <div class="stat-bar-fill" style="width: {{ pet.combat_hp }}%;"></div>
-            </div>
-            <span class="stat-value">{{ pet.combat_hp }}/100</span>
-        </div>
-        <div class="stat-row">
-            <span class="stat-label">> strength</span>
-            <div class="stat-bar" id="stat-strength">
-                <div class="stat-bar-fill" style="width: {{ pet.strength }}%;"></div>
-            </div>
-            <span class="stat-value">{{ pet.strength }}/100</span>
-        </div>
-        <div class="stat-row">
-            <span class="stat-label">> speed</span>
-            <div class="stat-bar" id="stat-speed">
-                <div class="stat-bar-fill" style="width: {{ pet.speed }}%;"></div>
-            </div>
-            <span class="stat-value">{{ pet.speed }}/100</span>
-        </div>
-        <div class="stat-row">
-            <span class="stat-label">> stage</span>
-            <div class="stat-pips" id="stat-stage">
-                {% for i in range(6) %}
-                    <span class="pip {% if i < pet.stage %}pip-on{% endif %}"></span>
-                {% endfor %}
-            </div>
-            <span class="stat-value">{{ pet.stage }}/6</span>
-        </div>
-        <div class="stat-row">
-            <span class="stat-label">> xp</span>
-            <span class="stat-value" id="stat-xp">{{ pet.xp }}</span>
-        </div>
-    </div>
-
-    <!-- ACCIONES -->
-    <div class="terminal-actions">
-        <button class="action-btn">feed</button>
-        <button class="action-btn">train</button>
-        <button class="action-btn">heal</button>
-        <button class="action-btn">clean</button>
-        <button class="action-btn">fight</button>
-    </div>
-
-    <!-- LOG -->
-    <div class="terminal-log">
-        <p id="log-output">> _</p>
     </div>
 
 </div>

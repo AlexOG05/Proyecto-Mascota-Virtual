@@ -1,7 +1,14 @@
+/* ------ LAYOUT ------ */
+.game-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
 /* ------ TERMINAL ------ */
 .terminal {
-    max-width: 860px;
-    margin: 0 auto;
+    flex: 1;
+    min-width: 0;
     border: 1px solid var(--accent);
     box-shadow: 0 0 16px #39d35333;
     font-family: var(--font-mono);
@@ -77,7 +84,44 @@
     width: 128px;
     height: 128px;
     z-index: 3;
-    animation: walk 4s linear infinite alternate;
+    animation: walk 8s linear infinite alternate;
+}
+
+#pet-sprite.flipped {
+    transform: scaleX(-1);
+}
+
+@keyframes walk {
+    from { left: 5%; }
+    to   { left: calc(90% - 128px); }
+}
+
+/* ------ BASURA ------ */
+#waste-container {
+    position: absolute;
+    bottom: 22px;
+    right: 8%;
+    display: flex;
+    gap: 6px;
+    align-items: flex-end;
+    z-index: 3;
+}
+
+.waste-icon {
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+    animation: waste-appear 0.3s ease-out;
+}
+
+@keyframes waste-appear {
+    from { transform: scale(0); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
+.action-btn.btn-alert {
+    color: #ff4444;
+    animation: blinker 1s linear infinite;
 }
 
 /*------ MUERTE DE CODEPET ------*/
@@ -125,9 +169,16 @@
     padding: 1rem 1.5rem;
     border-bottom: 1px solid var(--border);
     display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    background: var(--bg);
+}
+
+.stats-col {
+    flex: 1;
+    display: flex;
     flex-direction: column;
     gap: 0.6rem;
-    background: var(--bg);
 }
 
 .stat-row {
@@ -218,6 +269,253 @@
 
 .action-btn:active {
     background: #39d35322;
+}
+
+/* ----- SIDEBAR HISTORIAL ----- */
+.history-sidebar {
+    width: 160px;
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    padding: 1rem;
+    font-family: var(--font-mono);
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.history-entry {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.68rem;
+}
+
+.history-entry:last-child {
+    border-bottom: none;
+}
+
+.history-result {
+    font-size: 0.72rem;
+    font-weight: bold;
+}
+
+.history-result.win  { color: var(--accent); }
+.history-result.loss { color: #ff4444; }
+
+.history-meta {
+    color: var(--text-dim);
+}
+
+/* ----- SIDEBAR EVOLUCIONES ----- */
+.evo-sidebar {
+    width: 160px;
+    flex-shrink: 0;
+    border: 1px solid var(--accent);
+    background: var(--bg);
+    padding: 1rem;
+    font-family: var(--font-mono);
+}
+
+.evo-title {
+    color: var(--accent);
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+}
+
+#evo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.evo-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    opacity: 0.45;
+}
+
+.evo-card.evo-ready {
+    border-color: var(--accent);
+    opacity: 1;
+}
+
+.evo-sprite {
+    width: 48px;
+    height: 48px;
+    image-rendering: pixelated;
+}
+
+.evo-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    width: 100%;
+}
+
+.evo-name {
+    color: var(--text);
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+.evo-req {
+    color: var(--text-dim);
+    font-size: 0.68rem;
+}
+
+.evo-req.req-ok {
+    color: var(--accent);
+}
+
+/* ----- MODAL ENTRENAMIENTO ----- */
+.terminal {
+    position: relative;
+}
+
+.train-modal {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.93);
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.train-modal.hidden {
+    display: none;
+}
+
+.train-modal-inner {
+    width: 85%;
+    padding: 1.5rem;
+    border: 1px solid var(--accent);
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.train-label {
+    color: var(--accent);
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+}
+
+.train-highlight {
+    color: #fff;
+    font-weight: bold;
+}
+
+/* ----- MODAL EVOLUCIÓN ----- */
+.evo-modal-inner {
+    align-items: center;
+    text-align: center;
+    gap: 0.75rem;
+}
+
+.evo-modal-title {
+    color: var(--accent);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+}
+
+.evo-modal-sprite {
+    width: 96px;
+    height: 96px;
+    image-rendering: pixelated;
+    margin: 0.5rem 0;
+}
+
+.evo-modal-name {
+    color: #fff;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+}
+
+.evo-modal-msg {
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    line-height: 1.5;
+}
+
+.name-input {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+    outline: none;
+    margin: 0.75rem 0;
+    letter-spacing: 0.05em;
+}
+
+.name-input:focus {
+    border-color: var(--accent);
+}
+
+.train-stat-btns {
+    display: flex;
+    gap: 0;
+    margin: 0.75rem 0 0.5rem;
+}
+
+.minigame-bar {
+    position: relative;
+    width: 100%;
+    height: 36px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.minigame-zone {
+    position: absolute;
+    height: 100%;
+    background: rgba(57, 211, 83, 0.25);
+    border-left: 2px solid var(--accent);
+    border-right: 2px solid var(--accent);
+}
+
+.minigame-cursor {
+    position: absolute;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: #ff4444;
+}
+
+/* ----- ARENA DE COMBATE ----- */
+.battle-arena {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 96px;
+    padding: 0 1rem;
+    margin: 0.75rem 0;
+    border: 1px solid var(--border);
+    background: var(--surface);
+}
+
+.battle-sprite {
+    width: 64px;
+    height: 64px;
+    image-rendering: pixelated;
+}
+
+.battle-sprite-flip {
+    transform: scaleX(-1);
 }
 
 /* ----- LOG ----- */

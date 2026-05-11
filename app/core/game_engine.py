@@ -36,7 +36,7 @@ class GameEngine:
 
         # Le pasamos la pelota a la mascota: "Toma el tiempo y las reglas, actualízate tú"
         # Este método procesará el hambre, basura y energía internamente
-        updated = self.pet.process_time_passes(delta, RULES)
+        updated = self.pet.process_time_passes(delta)
 
         if updated:
             self.pet.set_last_update(now)

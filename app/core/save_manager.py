@@ -34,9 +34,9 @@ class SaveManager:
             return Pet(PetState())
 
     def save_state(self, pet: Pet):
-        try:  
+        try:
             with open(self.save_file, "w", encoding="utf-8") as f:
-                json.dump(pet.to_dict(), f, indent=4)
+                json.dump(pet.state.model_dump(), f, indent=4)
                 
         except Exception as e:
             print(f"Error crítico al intentar guardar la partida: {e}")
